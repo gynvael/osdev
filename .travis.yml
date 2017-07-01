@@ -1,0 +1,9 @@
+language: cpp
+
+addons:
+  apt:
+    packages:
+    - nasm
+    
+script:
+    - python manage.py build
