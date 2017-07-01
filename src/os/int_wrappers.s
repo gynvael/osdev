@@ -1,7 +1,6 @@
 .file "int_wrappers.s"
 .intel_syntax noprefix
 
-
 # by Karol Grzybowski
 # https://pastebin.com/r79HA1qT
 
@@ -48,4 +47,3 @@ Int_Wrapper_DE:
   add rsp, 8
 
   iretq
-

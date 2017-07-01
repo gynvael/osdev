@@ -4,7 +4,11 @@
 
 void T_SetCursorPosition(
     TerminalBackend *tb, uint16_t x, uint16_t y) {
-  tb->func_set_cursor_position(tb, x, y);  
+  tb->func_set_cursor_position(tb, x, y);
+}
+
+void T_SetColor(TerminalBackend *tb, unsigned char fgColor, unsigned char bgColor, bool blink) {
+  tb->func_set_color(tb, fgColor, bgColor, blink);
 }
 
 void T_PutText(TerminalBackend *tb, const char *s) {
@@ -38,7 +42,7 @@ void T_PutText(TerminalBackend *tb, const char *s) {
         if (x >= w) {
           x = 0;
           y += 1;
-          T_SetCursorPosition(tb, x, y);          
+          T_SetCursorPosition(tb, x, y);
         } else {
           for (uint16_t i = sx; i < x; i++) {
             T_PutCharacter(tb, ' ');
@@ -47,7 +51,7 @@ void T_PutText(TerminalBackend *tb, const char *s) {
         break;
       }
 
-      default:               
+      default:
         T_PutCharacter(tb, (unsigned char)*s);
     }
   }
@@ -88,7 +92,7 @@ void T_PrintUInt(TerminalBackend *tb, size_t n) {
     *p = (n % 10) + '0';
     n /= 10;
   }
-  T_PutText(tb, p);  
+  T_PutText(tb, p);
 }
 
 void T_PrintInt(TerminalBackend *tb, long long n) {
@@ -117,7 +121,6 @@ void T_PrintInt(TerminalBackend *tb, long long n) {
   T_PutText(tb, p);
 }
 
-
 void T_PrintHex(TerminalBackend *tb, size_t n, int width) {
   if (n == 0) {
     T_PrintChar(tb, '0');
@@ -141,7 +144,7 @@ void T_PrintHex(TerminalBackend *tb, size_t n, int width) {
 void T_Printf(TerminalBackend *tb, const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
-  
+
   const char *p = fmt;
 
   while (*p != '\0') {
@@ -197,5 +200,3 @@ void T_Printf(TerminalBackend *tb, const char *fmt, ...) {
 
   va_end(args);
 }
-
-

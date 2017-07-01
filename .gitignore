@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Project related stuff
+bin
+tmp
+*.pyc
+.vscode

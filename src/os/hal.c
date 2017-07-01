@@ -11,4 +11,3 @@ void HAL_PortOutWord(int port, unsigned short v) {
 void HAL_PortOutDword(int port, unsigned int v) {
   __asm("out dx, eax\n" : : "a" (v), "d" (port));
 }
-

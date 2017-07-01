@@ -14,7 +14,7 @@ start:
   ; Use fast A20 gate
   in al, 0x92
   or al, 2
-  out 0x92, al  
+  out 0x92, al
 
   ; Clear (disable) interrupts.
 
@@ -38,8 +38,8 @@ start:
   ;mov fs, ax
   ;mov bx, 0
   ;mov ax, 0x4141
-  ;mov [fs:bx], ax 
-  
+  ;mov [fs:bx], ax
+
   ; ds, cs, ss, es
   ; fs, gs
 
@@ -62,7 +62,7 @@ start32:
   mov ss, ax
 
   ;lea eax, [0xb8000]  ; mov eax, 0xb8000
-  
+
   ;mov dword [eax], 0x41414141
 
 ; Vol 3, 4.5 IA-32e Paging
@@ -70,7 +70,7 @@ start32:
 ; http://wiki.osdev.org/Setting_Up_Long_Mode
 ; Vol 3. 3.4.5 Segment Descriptors
 
-  mov eax, (PML4 - $$) + 0x20000 
+  mov eax, (PML4 - $$) + 0x20000
   mov cr3, eax
 
   mov eax, cr4
@@ -100,7 +100,7 @@ start64:
 loader:
   mov rsi, [0x20000 + kernel + 0x20]
   add rsi, 0x20000 + kernel
- 
+
   movzx ecx, word [0x20000 + kernel + 0x38]
 
   cld
@@ -113,7 +113,7 @@ loader:
   mov eax, [rsi + 0]
   cmp eax, 1  ; If it's not PT_LOAD, ignore.
   jne .next
-  
+
   mov r8, [rsi + 8] ; p_offset
   mov r9, [rsi + 0x10] ; p_vaddr
   mov r10, [rsi + 0x20] ; p_filesz
@@ -215,7 +215,7 @@ times (4096 - ($ - $$) % 4096) db 0
 ; code by reenz0h
 ; https://github.com/reenz0h/osdev-by-gyn/tree/master/osdev3-addons
 
-;PML4: 
+;PML4:
 ;dq 1 | (1 << 1) | (PDPTE - $$ + 0x20000)
 ;times 511 dq 0
 
@@ -227,7 +227,7 @@ times (4096 - ($ - $$) % 4096) db 0
 
 ; -------------------------------------------------------------
 ; Level 4 TABLE - Page-Map Level-4 Table
-PML4: 
+PML4:
 dq 1 | (1 << 1) | (PDPT - $$ + 0x20000)
 times 511 dq 0x0
 
@@ -237,7 +237,7 @@ times 511 dq 0x0
 
 ; Level 3 TABLE - Page-Directory Pointer Table
 PDPT:
-dq 1 | (1 << 1) | (PDT - $$ + 0x20000) 
+dq 1 | (1 << 1) | (PDT - $$ + 0x20000)
 times 511 dq 0x0
 
 ; Level 2 TABLE - Page Directory Table

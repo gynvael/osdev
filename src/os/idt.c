@@ -28,7 +28,6 @@ typedef struct IDTEntry IDTEntry;
     e.offset_63_32 = OFFSET_63_32(func); \
   }
 
-
 IDTEntry IDT[256];
 
 struct IDTPtr {
@@ -49,4 +48,3 @@ void SetIDTR(void) {
 
   __asm("lidt %0" : : "m"(ptr));
 }
-
